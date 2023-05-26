@@ -1,4 +1,106 @@
-уаорщцущпр
-івьлмьівлвьищаь
-
-ливьтлаиьщваьршщу
+П.З 3.3
+1.Створення баз даних:
+CREATE DATABASE database_1;
+CREATE DATABASE database_2;
+CREATE DATABASE database_3;
+2.Show databases:
+3.Створення таблиць з атрибутами:
+USE database_1;
+CREATE TABLE table_1_1 (
+  alr_1_1_1 INT,
+  alr_1_1_2 VARCHAR(255),
+  alr_1_1_3 DATETIME
+);
+CREATE TABLE table_1_2 (
+  alr_1_2_1 INT,
+  alr_1_2_2 VARCHAR(255),
+  alr_1_2_3 DATETIME
+);
+CREATE TABLE table_1_3 (
+  alr_1_3_1 INT,
+  alr_1_3_2 VARCHAR(255),
+  alr_1_3_3 DATETIME
+);
+USE database_2;
+CREATE TABLE table_2_1 (
+  alr_2_1_1 INT,
+  alr_2_1_2 VARCHAR(255),
+  alr_2_1_3 DATETIME
+);
+CREATE TABLE table_2_2 (
+  alr_2_2_1 INT,
+  alr_2_2_2 VARCHAR(255),
+  alr_2_2_3 DATETIME
+);
+CREATE TABLE table_2_3 (
+  alr_2_3_1 INT,
+  alr_2_3_2 VARCHAR(255),
+  alr_2_3_3 DATETIME
+);
+USE database_3;
+CREATE TABLE table_3_1 (
+  alr_3_1_1 INT,
+  alr_3_1_2 VARCHAR(255),
+  alr_3_1_3 DATETIME
+);
+CREATE TABLE table_3_2 (
+  alr_3_2_1 INT,
+  alr_3_2_2 VARCHAR(255),
+  alr_3_2_3 DATETIME
+);
+CREATE TABLE table_3_3 (
+  alr_3_3_1 INT,
+  alr_3_3_2 VARCHAR(255),
+  alr_3_3_3 DATETIME
+);
+4.Створення ключових полів значення автоінкремент
+USE database_1;
+ALTER TABLE table_1_1 MODIFY COLUMN alr_1_1_1 INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE table_1_2 MODIFY COLUMN alr_1_2_1 INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE table_1_3 MODIFY COLUMN alr_1_3_1 INT AUTO_INCREMENT PRIMARY KEY;
+USE database_2;
+ALTER TABLE table_2_1 MODIFY COLUMN alr_2_1_1 INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE table_2_2 MODIFY COLUMN alr_2_2_1 INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE table_2_3 MODIFY COLUMN alr_2_3_1 INT AUTO_INCREMENT PRIMARY KEY;
+USE database_3;
+ALTER TABLE table_3_1 MODIFY COLUMN alr_3_1_1 INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE table_3_2 MODIFY COLUMN alr_3_2_1 INT AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE table_3_3 MODIFY COLUMN alr_3_3_1 INT AUTO_INCREMENT PRIMARY KEY;
+5.Зв`язки між таблицями:
+USE database_1;
+ALTER TABLE table_1_1 ADD FOREIGN KEY (alr_1_1_1) REFERENCES table_1_3(alr_1_3_1);
+ALTER TABLE table_1_2 ADD FOREIGN KEY (alr_1_2_1) REFERENCES table_1_3(alr_1_3_1);
+USE database_2;
+ALTER TABLE table_2_1 ADD FOREIGN KEY (alr_2_1_1) REFERENCES table_2_3(alr_2_3_1);
+ALTER TABLE table_2_2 ADD FOREIGN KEY (alr_2_2_1) REFERENCES table_2_3(alr_2_3_1);
+USE database_3;
+ALTER TABLE table_3_1 ADD FOREIGN KEY (alr_3_1_1) REFERENCES table_3_3(alr_3_3_1);
+ALTER TABLE table_3_2 ADD FOREIGN KEY (alr_3_2_1) REFERENCES table_3_3(alr_3_3_1);
+6.Створення user:
+CREATE USER 'user_1'@'%' IDENTIFIED BY 'password_1';
+CREATE USER 'user_2'@'%' IDENTIFIED BY 'password_2';
+CREATE USER 'user_3'@'%' IDENTIFIED BY 'password_3';
+CREATE USER 'user_4'@'%' IDENTIFIED BY 'password_4';
+CREATE USER 'user_5'@'%' IDENTIFIED BY 'password_5';
+7.Створення ролів:
+CREATE ROLE role_1;
+CREATE ROLE role_2;
+8.Всі привілегії role_1 над database_1:
+GRANT ALL PRIVILEGES ON database_1.* TO role_1;
+9.role_2 привілегію роботи вибірку даних з table_1_1,table_1_2 database_1 з правом надання цієї привілегії іншими користувачам:
+GRANT SELECT ON database_1.table_1_1 TO role_2 WITH GRANT OPTION;
+GRANT SELECT ON database_1.table_1_2 TO role_2 WITH GRANT OPTION;
+10.Надання user_1 ролі 1 і 2:
+GRANT role_1 TO user_1;
+GRANT role_2 TO user_1
+11.Надання привілегії роботи зміни структури таблиць бд3 і бд1:
+GRANT ALTER ON database_3.* TO user_1;
+GRANT ALTER ON database_1.* TO user_1;
+12.Надання user_1, user_2 всіх привілегій мови DML для бд1 та бд3:
+GRANT CREATE, DROP ON *.* TO user_5;
+13. Видалення user_1 з role_2:
+REVOKE role_2 FROM user_1
+14. Видалення привілегій вибірки та вставки в user_1 бд1:
+REVOKE SELECT, INSERT ON database_1.* FROM user_1;
+15. Видалення привілегій видалення та оновлення в user_1 бд3:
+REVOKE DELETE, UPDATE ON database_3.* FROM user_1;
